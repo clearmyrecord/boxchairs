@@ -16,17 +16,23 @@
       --red: #ef4338;
       --orange: #ff9518;
       --blue: #2d93d1;
-      --dark: #3f4850;
+      --dark: #20262b;
+      --slate: #3f4850;
       --gray: #6f777d;
+      --light: #f6f8fa;
       --white: #ffffff;
-      --shadow: 0 20px 50px rgba(0,0,0,.12);
+      --shadow: 0 20px 50px rgba(0, 0, 0, .12);
       --radius: 28px;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: var(--white);
-      color: var(--dark);
+      color: var(--slate);
       line-height: 1.6;
     }
 
@@ -44,7 +50,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255,255,255,.92);
+      background: rgba(255, 255, 255, .94);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid #e8edf2;
     }
@@ -77,6 +83,10 @@
       color: var(--gray);
     }
 
+    .nav-links a:hover {
+      color: var(--red);
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -92,7 +102,7 @@
     .btn-primary {
       background: var(--red);
       color: white;
-      box-shadow: 0 14px 30px rgba(239,67,56,.28);
+      box-shadow: 0 14px 30px rgba(239, 67, 56, .28);
     }
 
     .btn-primary:hover {
@@ -100,8 +110,8 @@
     }
 
     .btn-outline {
-      border: 2px solid var(--dark);
-      color: var(--dark);
+      border: 2px solid var(--slate);
+      color: var(--slate);
       background: transparent;
     }
 
@@ -168,7 +178,7 @@
 
     .proof strong {
       display: block;
-      color: var(--dark);
+      color: var(--slate);
       font-size: 1.4rem;
       line-height: 1;
     }
@@ -222,7 +232,7 @@
     }
 
     section {
-      padding: 78px 0;
+      padding: 76px 0;
     }
 
     .section-title {
@@ -240,7 +250,7 @@
       font-size: clamp(2.2rem, 4vw, 4rem);
       line-height: 1;
       letter-spacing: -.06em;
-      color: var(--dark);
+      color: var(--slate);
       margin-bottom: 14px;
     }
 
@@ -250,8 +260,13 @@
     }
 
     .video-section {
-      background: #20262b;
+      background: var(--dark);
       color: white;
+      padding: 46px 0 42px;
+    }
+
+    .video-section .section-title {
+      margin-bottom: 24px;
     }
 
     .video-section .section-title h2,
@@ -259,25 +274,34 @@
       color: white;
     }
 
-.video-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  background: #000;
-}
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: #000;
+    }
 
-.video-wrap iframe {
-  width: 100%;
-  height: 100%;
-  display: block;
-  border: 0;
-}
+    .video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+    }
 
     .photo-slider-section {
       background: #ffffff;
+      padding: 36px 0 64px;
+    }
+
+    .photo-slider-section .section-title {
+      margin-bottom: 18px;
+    }
+
+    .photo-slider-section .eyebrow {
+      margin-bottom: 0;
     }
 
     .photo-slider {
@@ -285,7 +309,7 @@
       overflow: hidden;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      background: #20262b;
+      background: var(--dark);
     }
 
     .slider-track {
@@ -296,7 +320,7 @@
     .slide {
       min-width: 100%;
       height: 540px;
-      background: #20262b;
+      background: var(--dark);
     }
 
     .slide img {
@@ -316,7 +340,7 @@
       border: 0;
       border-radius: 50%;
       background: rgba(255,255,255,.92);
-      color: var(--dark);
+      color: var(--slate);
       font-size: 2.1rem;
       cursor: pointer;
       box-shadow: 0 10px 25px rgba(0,0,0,.18);
@@ -452,7 +476,7 @@
     }
 
     td:last-child {
-      color: var(--dark);
+      color: var(--slate);
       font-weight: 900;
     }
 
@@ -505,7 +529,7 @@
 
     footer {
       padding: 34px 0;
-      background: #20262b;
+      background: var(--dark);
       color: #cbd3da;
     }
 
@@ -518,6 +542,22 @@
     }
 
     @media (max-width: 900px) {
+      .nav {
+        height: 72px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .site-logo {
+        height: 44px;
+      }
+
+      .hero {
+        padding: 56px 0 50px;
+      }
+
       .hero-grid,
       .pricing-wrap {
         grid-template-columns: 1fr;
@@ -529,24 +569,41 @@
         grid-template-columns: 1fr;
       }
 
-      .nav-links {
-        display: none;
-      }
-
-      .site-logo {
-        height: 44px;
-      }
-
       .chair-card {
-        min-height: 420px;
+        min-height: 390px;
       }
 
       .chair-card h2 {
         font-size: 3.2rem;
       }
 
+      section {
+        padding: 56px 0;
+      }
+
+      .video-section {
+        padding: 34px 0 28px;
+      }
+
+      .video-section .section-title {
+        margin-bottom: 18px;
+      }
+
+      .photo-slider-section {
+        padding: 26px 0 46px;
+      }
+
+      .photo-slider-section .section-title {
+        margin-bottom: 14px;
+      }
+
       .slide {
         height: 330px;
+      }
+
+      .slider-btn {
+        width: 42px;
+        height: 42px;
       }
     }
   </style>
@@ -623,24 +680,21 @@
         </p>
       </div>
 
-<div class="video-wrap">
-  <iframe
-    src="https://player.vimeo.com/video/222241089"
-    title="Box Chairs Promo Video"
-    allow="autoplay; fullscreen; picture-in-picture"
-    allowfullscreen>
-  </iframe>
-</div>
-      
+      <div class="video-wrap">
+        <iframe
+          src="https://player.vimeo.com/video/222241089"
+          title="Box Chairs Promo Video"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </section>
+
   <section id="photos" class="photo-slider-section">
     <div class="container">
       <div class="section-title center">
         <div class="eyebrow">Product Photos</div>
-        <h2>See Box Chairs in action.</h2>
-        <p>
-          Use this slider to showcase product shots, event mockups, sponsor designs,
-          and branded chair concepts.
-        </p>
       </div>
 
       <div class="photo-slider">
@@ -766,6 +820,7 @@
               <th>Starting Price</th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <td>Full Color - Non-Weather Resistant</td>
@@ -900,4 +955,4 @@
 </script>
 
 </body>
-</html></html>
+</html>
