@@ -18,9 +18,7 @@
       --blue: #2d93d1;
       --dark: #3f4850;
       --gray: #6f777d;
-      --light: #f6f8fa;
       --white: #ffffff;
-      --green: #4c7a38;
       --shadow: 0 20px 50px rgba(0,0,0,.12);
       --radius: 28px;
     }
@@ -251,9 +249,33 @@
       font-size: 1.1rem;
     }
 
+    .video-section {
+      background: #20262b;
+      color: white;
+    }
+
+    .video-section .section-title h2,
+    .video-section .section-title p {
+      color: white;
+    }
+
+    .video-wrap {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: #000;
+    }
+
+    .promo-video {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 680px;
+      object-fit: cover;
+    }
+
     .photo-slider-section {
       background: #ffffff;
-      padding: 78px 0;
     }
 
     .photo-slider {
@@ -272,7 +294,6 @@
     .slide {
       min-width: 100%;
       height: 540px;
-      position: relative;
       background: #20262b;
     }
 
@@ -295,7 +316,6 @@
       background: rgba(255,255,255,.92);
       color: var(--dark);
       font-size: 2.1rem;
-      line-height: 1;
       cursor: pointer;
       box-shadow: 0 10px 25px rgba(0,0,0,.18);
     }
@@ -540,6 +560,7 @@
 
     <nav class="nav-links">
       <a href="#about">About</a>
+      <a href="#video">Video</a>
       <a href="#photos">Photos</a>
       <a href="#services">Services</a>
       <a href="#pricing">Pricing</a>
@@ -585,6 +606,26 @@
         <div class="chair-shape"></div>
         <h2>Brandable Seating That Gets Seen</h2>
         <span class="tag">Made for outdoor events, sponsors & campaigns</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="video" class="video-section">
+    <div class="container">
+      <div class="section-title center">
+        <div class="eyebrow">Promo Video</div>
+        <h2>See the Box Chairs concept.</h2>
+        <p>
+          A quick look at how branded cardboard seating can turn events, sponsors,
+          and campaigns into something people notice, use, and remember.
+        </p>
+      </div>
+
+      <div class="video-wrap">
+        <video class="promo-video" controls playsinline preload="metadata" poster="images/productphotos/photo1.jpg">
+          <source src="images/videos/promovideo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
     </div>
   </section>
@@ -831,7 +872,7 @@
   }
 
   function nextSlide() {
-    currentSlide = currentSlide + 1;
+    currentSlide++;
 
     if (currentSlide >= slides.length) {
       currentSlide = 0;
@@ -841,7 +882,7 @@
   }
 
   function prevSlide() {
-    currentSlide = currentSlide - 1;
+    currentSlide--;
 
     if (currentSlide < 0) {
       currentSlide = slides.length - 1;
@@ -857,4 +898,4 @@
 </script>
 
 </body>
-</html>
+</html></html>
