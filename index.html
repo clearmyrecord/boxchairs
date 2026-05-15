@@ -60,20 +60,14 @@
     }
 
     .brand {
-      font-weight: 900;
-      font-size: 1.35rem;
-      letter-spacing: -.04em;
       display: flex;
       align-items: center;
-      gap: 10px;
     }
 
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      background: linear-gradient(135deg, var(--red), var(--orange));
-      border-radius: 10px;
-      transform: rotate(45deg);
+    .site-logo {
+      height: 52px;
+      width: auto;
+      display: block;
     }
 
     .nav-links {
@@ -238,6 +232,12 @@
       margin-bottom: 38px;
     }
 
+    .section-title.center {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .section-title h2 {
       font-size: clamp(2.2rem, 4vw, 4rem);
       line-height: 1;
@@ -249,6 +249,84 @@
     .section-title p {
       color: var(--gray);
       font-size: 1.1rem;
+    }
+
+    .photo-slider-section {
+      background: #ffffff;
+      padding: 78px 0;
+    }
+
+    .photo-slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: #20262b;
+    }
+
+    .slider-track {
+      display: flex;
+      transition: transform .45s ease;
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 540px;
+      position: relative;
+      background: #20262b;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      width: 50px;
+      height: 50px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,.92);
+      color: var(--dark);
+      font-size: 2.1rem;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,.18);
+    }
+
+    .slider-btn.prev {
+      left: 18px;
+    }
+
+    .slider-btn.next {
+      right: 18px;
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 0;
+      background: #cfd8e3;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background: var(--red);
+      width: 28px;
     }
 
     .cards {
@@ -433,12 +511,20 @@
         display: none;
       }
 
+      .site-logo {
+        height: 44px;
+      }
+
       .chair-card {
         min-height: 420px;
       }
 
       .chair-card h2 {
         font-size: 3.2rem;
+      }
+
+      .slide {
+        height: 330px;
       }
     }
   </style>
@@ -448,13 +534,13 @@
 
 <header>
   <div class="container nav">
-    <a href="#" class="brand">
-      <span class="brand-mark"></span>
-      Box Chairs
+    <a href="index.html" class="brand">
+      <img src="images/logo.png" alt="Box Chairs Logo" class="site-logo" />
     </a>
 
     <nav class="nav-links">
       <a href="#about">About</a>
+      <a href="#photos">Photos</a>
       <a href="#services">Services</a>
       <a href="#pricing">Pricing</a>
       <a href="#contact" class="btn btn-primary">Start an Order</a>
@@ -500,6 +586,45 @@
         <h2>Brandable Seating That Gets Seen</h2>
         <span class="tag">Made for outdoor events, sponsors & campaigns</span>
       </div>
+    </div>
+  </section>
+
+  <section id="photos" class="photo-slider-section">
+    <div class="container">
+      <div class="section-title center">
+        <div class="eyebrow">Product Photos</div>
+        <h2>See Box Chairs in action.</h2>
+        <p>
+          Use this slider to showcase product shots, event mockups, sponsor designs,
+          and branded chair concepts.
+        </p>
+      </div>
+
+      <div class="photo-slider">
+        <button class="slider-btn prev" type="button" aria-label="Previous slide">‹</button>
+
+        <div class="slider-track" id="sliderTrack">
+          <div class="slide">
+            <img src="images/productphotos/photo1.jpg" alt="Custom branded Box Chair product photo" />
+          </div>
+          <div class="slide">
+            <img src="images/productphotos/photo2.jpg" alt="Printed cardboard event chair product photo" />
+          </div>
+          <div class="slide">
+            <img src="images/productphotos/photo3.jpg" alt="Eco-friendly promotional chair product photo" />
+          </div>
+          <div class="slide">
+            <img src="images/productphotos/photo4.jpg" alt="Box Chair event seating product photo" />
+          </div>
+          <div class="slide">
+            <img src="images/productphotos/photo5.jpg" alt="Custom cardboard chair campaign product photo" />
+          </div>
+        </div>
+
+        <button class="slider-btn next" type="button" aria-label="Next slide">›</button>
+      </div>
+
+      <div class="slider-dots" id="sliderDots"></div>
     </div>
   </section>
 
@@ -667,6 +792,69 @@
     <p>Eco-friendly cardboard chairs for events, brands, and sponsors.</p>
   </div>
 </footer>
+
+<script>
+  const sliderTrack = document.getElementById("sliderTrack");
+  const slides = document.querySelectorAll(".slide");
+  const prevButton = document.querySelector(".slider-btn.prev");
+  const nextButton = document.querySelector(".slider-btn.next");
+  const sliderDots = document.getElementById("sliderDots");
+
+  let currentSlide = 0;
+
+  slides.forEach((slide, index) => {
+    const dot = document.createElement("button");
+    dot.classList.add("dot");
+    dot.setAttribute("type", "button");
+    dot.setAttribute("aria-label", "Go to slide " + (index + 1));
+
+    if (index === 0) {
+      dot.classList.add("active");
+    }
+
+    dot.addEventListener("click", () => {
+      currentSlide = index;
+      updateSlider();
+    });
+
+    sliderDots.appendChild(dot);
+  });
+
+  const dots = document.querySelectorAll(".dot");
+
+  function updateSlider() {
+    sliderTrack.style.transform = "translateX(-" + currentSlide * 100 + "%)";
+
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === currentSlide);
+    });
+  }
+
+  function nextSlide() {
+    currentSlide = currentSlide + 1;
+
+    if (currentSlide >= slides.length) {
+      currentSlide = 0;
+    }
+
+    updateSlider();
+  }
+
+  function prevSlide() {
+    currentSlide = currentSlide - 1;
+
+    if (currentSlide < 0) {
+      currentSlide = slides.length - 1;
+    }
+
+    updateSlider();
+  }
+
+  nextButton.addEventListener("click", nextSlide);
+  prevButton.addEventListener("click", prevSlide);
+
+  setInterval(nextSlide, 5000);
+</script>
 
 </body>
 </html>
