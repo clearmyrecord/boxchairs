@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Box Chairs | Sit Outside the Box</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red: #ef4338;
+      --orange: #ff9518;
+      --blue: #2d93d1;
+      --dark: #3f4850;
+      --gray: #6f777d;
+      --light: #f6f8fa;
+      --white: #ffffff;
+      --green: #4c7a38;
+      --shadow: 0 20px 50px rgba(0,0,0,.12);
+      --radius: 28px;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid #e8edf2;
+    }
+
+    .nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      font-weight: 900;
+      font-size: 1.35rem;
+      letter-spacing: -.04em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      border-radius: 10px;
+      transform: rotate(45deg);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      align-items: center;
+      font-weight: 700;
+      font-size: .92rem;
+      color: var(--gray);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 900;
+      border: 0;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: white;
+      box-shadow: 0 14px 30px rgba(239,67,56,.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--dark);
+      color: var(--dark);
+      background: transparent;
+    }
+
+    .hero {
+      padding: 86px 0 72px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top right, rgba(45,147,209,.14), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, #f7fafc 100%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 54px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-size: .82rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(3.1rem, 7vw, 6.8rem);
+      line-height: .9;
+      letter-spacing: -.08em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--gray);
+      max-width: 620px;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .proof-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      max-width: 620px;
+    }
+
+    .proof {
+      background: white;
+      padding: 18px;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .proof strong {
+      display: block;
+      color: var(--dark);
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    .proof span {
+      color: var(--gray);
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .chair-card {
+      position: relative;
+      min-height: 520px;
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #ff9f1c, #ef4338);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      padding: 36px;
+      color: white;
+    }
+
+    .chair-shape {
+      position: absolute;
+      right: -25px;
+      bottom: -35px;
+      width: 78%;
+      height: 78%;
+      background: rgba(255,255,255,.16);
+      clip-path: polygon(20% 0, 100% 18%, 90% 100%, 0 86%);
+    }
+
+    .chair-card h2 {
+      position: relative;
+      z-index: 2;
+      font-size: 4.2rem;
+      line-height: .9;
+      letter-spacing: -.06em;
+      text-transform: uppercase;
+      max-width: 420px;
+    }
+
+    .chair-card .tag {
+      position: relative;
+      z-index: 2;
+      margin-top: 20px;
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.22);
+      font-weight: 900;
+    }
+
+    section {
+      padding: 78px 0;
+    }
+
+    .section-title {
+      max-width: 760px;
+      margin-bottom: 38px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 1;
+      letter-spacing: -.06em;
+      color: var(--dark);
+      margin-bottom: 14px;
+    }
+
+    .section-title p {
+      color: var(--gray);
+      font-size: 1.1rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e7edf3;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 14px 35px rgba(0,0,0,.06);
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(45,147,209,.14);
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: var(--blue);
+      text-transform: uppercase;
+    }
+
+    .card p {
+      color: var(--gray);
+      font-size: .96rem;
+    }
+
+    .dark-band {
+      background: var(--dark);
+      color: white;
+    }
+
+    .dark-band .section-title h2,
+    .dark-band .section-title p {
+      color: white;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 24px;
+      padding: 28px;
+    }
+
+    .step-number {
+      color: var(--orange);
+      font-size: 2.4rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .pricing-wrap {
+      display: grid;
+      grid-template-columns: 1fr .8fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      background: white;
+    }
+
+    th {
+      background: var(--blue);
+      color: white;
+      text-align: left;
+      padding: 16px;
+      font-size: .9rem;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 15px 16px;
+      border-bottom: 1px solid #e3e8ee;
+      color: var(--gray);
+      font-weight: 700;
+    }
+
+    td:last-child {
+      color: var(--dark);
+      font-weight: 900;
+    }
+
+    .pricing-note {
+      background: #fff7ec;
+      border: 1px solid #ffe0b6;
+      border-radius: 24px;
+      padding: 28px;
+    }
+
+    .pricing-note h3 {
+      color: var(--red);
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .pricing-note ul {
+      padding-left: 20px;
+      color: var(--gray);
+      margin-bottom: 18px;
+    }
+
+    .cta {
+      background:
+        linear-gradient(135deg, rgba(239,67,56,.94), rgba(255,149,24,.94)),
+        #ef4338;
+      color: white;
+      text-align: center;
+      padding: 86px 0;
+    }
+
+    .cta h2 {
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      line-height: .95;
+      letter-spacing: -.07em;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+
+    .cta p {
+      max-width: 720px;
+      margin: 0 auto 28px;
+      font-size: 1.15rem;
+    }
+
+    .cta .btn {
+      background: white;
+      color: var(--red);
+    }
+
+    footer {
+      padding: 34px 0;
+      background: #20262b;
+      color: #cbd3da;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: .92rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .pricing-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .cards,
+      .steps,
+      .proof-row {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .chair-card {
+        min-height: 420px;
+      }
+
+      .chair-card h2 {
+        font-size: 3.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#" class="brand">
+      <span class="brand-mark"></span>
+      Box Chairs
+    </a>
+
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact" class="btn btn-primary">Start an Order</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Eco-Friendly Event Seating</div>
+        <h1>Sit Outside The Box</h1>
+        <p>
+          Custom printed cardboard chairs made from recycled materials for events,
+          brands, campuses, sports promotions, festivals, and experiential marketing campaigns.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Create Your Box Chairs</a>
+          <a href="#pricing" class="btn btn-outline">View Pricing</a>
+        </div>
+
+        <div class="proof-row">
+          <div class="proof">
+            <strong>485 lbs</strong>
+            <span>Weight tested</span>
+          </div>
+          <div class="proof">
+            <strong>Custom</strong>
+            <span>Full-color graphics</span>
+          </div>
+          <div class="proof">
+            <strong>Recycled</strong>
+            <span>Cardboard material</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chair-card">
+        <div class="chair-shape"></div>
+        <h2>Brandable Seating That Gets Seen</h2>
+        <span class="tag">Made for outdoor events, sponsors & campaigns</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-title">
+        <h2>Cardboard chairs built for attention.</h2>
+        <p>
+          Box Chairs turn ordinary event seating into a branded experience. Each chair can be
+          designed with sponsor logos, campaign artwork, school spirit, product launches,
+          festival graphics, or venue messaging.
+        </p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="icon">♻</div>
+          <h3>Eco-Friendly</h3>
+          <p>Made with recycled cardboard for a lighter, smarter alternative to traditional event seating.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">★</div>
+          <h3>Brandable</h3>
+          <p>Turn every seat into a sponsor impression, photo opportunity, or interactive brand moment.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">485</div>
+          <h3>Weight Tested</h3>
+          <p>Designed and tested to support up to 485 lbs for real-world event use.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">⚡</div>
+          <h3>Fast Campaigns</h3>
+          <p>Send the idea, preview the design, approve the artwork, and get chairs shipped to your event.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="dark-band">
+    <div class="container">
+      <div class="section-title">
+        <h2>What we do.</h2>
+        <p>
+          We help businesses, sponsors, venues, and event organizers create custom chairs that build brands,
+          grow businesses, and transform audiences the earth-friendly way.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">01</div>
+          <h3>Manufacturing</h3>
+          <p>We produce cardboard chairs for events, activations, and custom campaigns.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">02</div>
+          <h3>Graphic Design</h3>
+          <p>We design custom graphics that fit your brand, sponsor, or event theme.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">03</div>
+          <h3>Printing</h3>
+          <p>Your artwork is printed directly onto the chairs for high-visibility marketing.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">04</div>
+          <h3>Strategy</h3>
+          <p>We help plan campaigns that make the chairs part of a larger brand experience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="container">
+      <div class="section-title">
+        <h2>Simple volume pricing.</h2>
+        <p>
+          Pricing depends on quantity, print type, weather resistance, delivery location, and production timeline.
+        </p>
+      </div>
+
+      <div class="pricing-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Starting Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Full Color - Non-Weather Resistant</td>
+              <td>25</td>
+              <td>$19.75</td>
+            </tr>
+            <tr>
+              <td>Full Color - Non-Weather Resistant</td>
+              <td>100</td>
+              <td>$14.30</td>
+            </tr>
+            <tr>
+              <td>Full Color - Non-Weather Resistant</td>
+              <td>250</td>
+              <td>$10.92</td>
+            </tr>
+            <tr>
+              <td>Full Color - Non-Weather Resistant</td>
+              <td>1,000</td>
+              <td>$9.02</td>
+            </tr>
+            <tr>
+              <td>Four Color - Weather Resistant</td>
+              <td>3,500+</td>
+              <td>$3.54</td>
+            </tr>
+            <tr>
+              <td>Four Color - Weather Resistant</td>
+              <td>100,000+</td>
+              <td>$3.33</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="pricing-note">
+          <h3>Terms</h3>
+          <ul>
+            <li>Full color production lead time: approximately 5 business days.</li>
+            <li>Weather resistant production and delivery: approximately 7 weeks.</li>
+            <li>Shipping costs depend on delivery location.</li>
+            <li>Custom design, campaign planning, and large-volume pricing available.</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">Request Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="cta">
+    <div class="container">
+      <h2>Create Your Own Box Chairs</h2>
+      <p>
+        Send us your idea, logo, event details, quantity, and deadline.
+        We’ll help turn it into a custom branded seating campaign.
+      </p>
+      <a href="mailto:Matt@UnitedPaintersWW.com?subject=Box Chairs Quote Request" class="btn">
+        Request a Quote
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 Box Chairs. Sit Outside the Box.</p>
+    <p>Eco-friendly cardboard chairs for events, brands, and sponsors.</p>
+  </div>
+</footer>
+
+</body>
+</html>
